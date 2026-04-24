@@ -441,6 +441,10 @@ document.getElementById('file-input').addEventListener('change',async function()
 // Returns current playhead position in samples, looping
 function getCurrentPlayHead(){
   if(!actx||fileLen===0) return 0;
+  if(frozen){
+    // frozen: always return the snapshot position, no advancement
+    return playHeadStartSample;
+  }
   const elapsed=actx.currentTime-playHeadStartTime;
   const elapsedSamples=Math.floor(elapsed*actx.sampleRate);
   return (playHeadStartSample+elapsedSamples)%fileLen;
@@ -600,10 +604,21 @@ function toggleRun(){
 }
 function toggleFreeze(){
   frozen=!frozen;
+  if(source==='file'&&fileLen>0&&actx){
+    if(frozen){
+      // snapshot current playhead position — stop the clock
+      playHeadStartSample=getCurrentPlayHead();
+      playHeadStartTime=actx.currentTime;
+    } else {
+      // resume from frozen position — reset clock to now
+      playHeadStartTime=actx.currentTime;
+      // playHeadStartSample stays as-is (the frozen position)
+    }
+  }
   document.getElementById('btn-freeze').classList.toggle('on',frozen);
   document.getElementById('st-freeze').classList.toggle('on',frozen);
   document.getElementById('st-live').classList.toggle('on',!frozen);
-  log(frozen?'FREEZE: BUF LOCKED':'FREEZE: BUF WRITING');
+  log(frozen?'FREEZE: PLAYHEAD LOCKED':'FREEZE: PLAYHEAD RUNNING');
 }
 function toggleReverb(){
   reverbOn=!reverbOn;
