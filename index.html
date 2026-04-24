@@ -13,29 +13,29 @@ html,body{background:#1a0a06;height:100%;overscroll-behavior:none}
 body{font-family:'Share Tech Mono',monospace,Courier;color:#c8a882;padding:14px 12px 36px}
 
 /* HEADER */
-.h-top{font-size:9px;color:#6b3a20;letter-spacing:3px;margin-bottom:1px}
-.h-title{font-size:13px;letter-spacing:5px;color:#c8a882;margin-bottom:1px}
-.h-sub{font-size:8px;color:#6b3a20;letter-spacing:1px;margin-bottom:11px}
-.divider{border:none;border-top:1px solid #3a1a0a;margin:10px 0}
+.h-top{font-size:10px;color:#6b3a20;letter-spacing:3px;margin-bottom:2px}
+.h-title{font-size:15px;letter-spacing:5px;color:#c8a882;margin-bottom:2px}
+.h-sub{font-size:10px;color:#6b3a20;letter-spacing:1px;margin-bottom:12px}
+.divider{border:none;border-top:1px solid #3a1a0a;margin:12px 0}
 
 /* STATUS TAGS */
-.status-row{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
-.tag{font-size:7px;letter-spacing:1.5px;padding:2px 7px;border:1px solid #3a1a0a;color:#4a2a10}
+.status-row{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.tag{font-size:9px;letter-spacing:1.5px;padding:3px 8px;border:1px solid #3a1a0a;color:#4a2a10}
 .tag.on{border-color:#c8a882;color:#c8a882}
 
 /* SOURCE SWITCH */
-.src-row{display:flex;gap:6px;margin-bottom:10px}
-.src-btn{flex:1;font-family:inherit;font-size:8px;letter-spacing:2px;padding:8px 4px;
+.src-row{display:flex;gap:6px;margin-bottom:12px}
+.src-btn{flex:1;font-family:inherit;font-size:11px;letter-spacing:2px;padding:10px 4px;
   background:#0e0503;border:1px solid #3a1a0a;color:#6b3a20;cursor:pointer;text-align:center;
   touch-action:manipulation}
 .src-btn.active{background:#2a0e04;border-color:#c8a882;color:#c8a882}
-.file-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.file-label{font-family:inherit;font-size:8px;letter-spacing:1px;padding:8px 12px;
+.file-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.file-label{font-family:inherit;font-size:10px;letter-spacing:1px;padding:9px 14px;
   background:#0e0503;border:1px solid #3a1a0a;color:#8a5a3a;cursor:pointer;
   touch-action:manipulation;white-space:nowrap}
 .file-label:active{border-color:#c8a882;color:#c8a882}
 #file-input{display:none}
-.file-name{font-size:8px;color:#6b3a20;letter-spacing:1px;flex:1;overflow:hidden;
+.file-name{font-size:10px;color:#6b3a20;letter-spacing:1px;flex:1;overflow:hidden;
   text-overflow:ellipsis;white-space:nowrap}
 
 /* BARS VISUALIZER */
@@ -56,15 +56,15 @@ body{font-family:'Share Tech Mono',monospace,Courier;color:#c8a882;padding:14px 
 .dot.fade{background:#4a2010;border-color:#3a1a0a}
 
 /* MODE ROW */
-.mode-row{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:10px}
-.mode-btn{font-family:inherit;font-size:7px;letter-spacing:1px;padding:7px 2px;
+.mode-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.mode-btn{font-family:inherit;font-size:10px;letter-spacing:1px;padding:9px 2px;
   background:#0e0503;border:1px solid #3a1a0a;color:#6b3a20;
   cursor:pointer;text-align:center;touch-action:manipulation}
 .mode-btn.active{background:#2a0e04;border-color:#c8a882;color:#c8a882}
 
 /* BTN ROW */
-.btn-row{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:12px}
-.btn{font-family:inherit;font-size:8px;letter-spacing:2px;padding:9px 4px;
+.btn-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px}
+.btn{font-family:inherit;font-size:11px;letter-spacing:2px;padding:11px 4px;
   background:#0e0503;border:1px solid #3a1a0a;color:#8a5a3a;
   cursor:pointer;text-align:center;touch-action:manipulation}
 .btn.on{background:#2a0e04;border-color:#c8a882;color:#c8a882}
@@ -72,32 +72,41 @@ body{font-family:'Share Tech Mono',monospace,Courier;color:#c8a882;padding:14px 
 .btn.red.on{border-color:#c04018;color:#e05020;background:#200804}
 
 /* PANEL */
-.panel{border:1px solid #3a1a0a;padding:10px;margin-bottom:10px}
-.panel-label{font-size:7px;letter-spacing:3px;color:#4a2a10;margin-bottom:9px}
+.panel{border:1px solid #3a1a0a;padding:14px;margin-bottom:12px}
+.panel-label{font-size:9px;letter-spacing:3px;color:#4a2a10;margin-bottom:14px}
 
 /* PARAM ROWS */
-.param-row{display:flex;align-items:center;gap:8px;margin-bottom:11px}
+.param-row{display:flex;align-items:center;gap:10px;margin-bottom:20px}
 .param-row:last-child{margin-bottom:0}
-.pname{font-size:8px;letter-spacing:1px;color:#8a5a3a;width:62px;flex-shrink:0}
+.pname{font-size:11px;letter-spacing:1px;color:#8a5a3a;width:72px;flex-shrink:0;line-height:1.3}
+/* give the range element a height equal to thumb so it occupies real space */
 input[type=range]{
   -webkit-appearance:none;appearance:none;
-  flex:1;height:3px;background:#2a0e04;outline:none;cursor:pointer;border-radius:0}
+  flex:1;height:28px;background:transparent;
+  outline:none;cursor:pointer;border-radius:0;
+  display:flex;align-items:center}
 input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:20px;height:28px;
-  background:#c8a882;cursor:pointer;border-radius:0}
-input[type=range]::-webkit-slider-runnable-track{height:3px;background:#2a0e04}
-.pval{font-size:9px;color:#c8a882;width:40px;text-align:right;flex-shrink:0}
+  -webkit-appearance:none;width:18px;height:28px;
+  background:#c8a882;cursor:pointer;border-radius:0;
+  margin-top:-12px}          /* pull thumb to centre of track */
+input[type=range]::-webkit-slider-runnable-track{
+  height:3px;background:#2a0e04;border-radius:0}
+input[type=range]::-moz-range-thumb{
+  width:18px;height:28px;background:#c8a882;
+  border:none;border-radius:0;cursor:pointer}
+input[type=range]::-moz-range-track{height:3px;background:#2a0e04}
+.pval{font-size:11px;color:#c8a882;width:44px;text-align:right;flex-shrink:0}
 
 /* METERS */
-.meter-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.meter-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .meter-row:last-child{margin-bottom:0}
-.mlabel{font-size:7px;letter-spacing:1px;color:#6b3a20;width:32px}
-.mtrack{flex:1;height:6px;background:#0e0503}
+.mlabel{font-size:10px;letter-spacing:1px;color:#6b3a20;width:36px}
+.mtrack{flex:1;height:7px;background:#0e0503}
 .mfill{height:100%;background:#c8a882;transition:width 0.05s}
-.mpct{font-size:8px;color:#8a5a3a;width:24px;text-align:right}
+.mpct{font-size:10px;color:#8a5a3a;width:28px;text-align:right}
 
 /* LOG */
-.log{font-size:8px;color:#4a2a10;letter-spacing:0.5px;line-height:1.9}
+.log{font-size:10px;color:#4a2a10;letter-spacing:0.5px;line-height:2}
 .log span{color:#7a4a28}
 
 /* OVERLAY */
@@ -175,8 +184,8 @@ input[type=range]::-webkit-slider-runnable-track{height:3px;background:#2a0e04}
   <div class="panel-label">GRAIN PARAMS</div>
   <div class="param-row">
     <span class="pname">POSITION</span>
-    <input type="range" min="0" max="100" value="40" step="1" oninput="up('pos',+this.value)">
-    <span class="pval" id="v-pos">40%</span>
+    <input type="range" min="0" max="100" value="50" step="1" oninput="up('pos',+this.value)">
+    <span class="pval" id="v-pos">+0%</span>
   </div>
   <div class="param-row">
     <span class="pname">SIZE</span>
@@ -243,17 +252,28 @@ input[type=range]::-webkit-slider-runnable-track{height:3px;background:#2a0e04}
 </div>
 
 <script>
-const P={pos:40,size:50,pitch:50,density:60,texture:20,spread:20,stereo:50,fb:10,reverb:30,wet:80};
+const P={pos:50,size:50,pitch:50,density:60,texture:20,spread:20,stereo:50,fb:10,reverb:30,wet:80};
 let running=true,frozen=false,reverbOn=false;
 let actx=null,analyser=null,masterGain=null,reverbGain=null;
-let micBuf=new Float32Array(0),bufPos=0;
+
+// MIC mode: ring buffer written by ScriptProcessor
 const BUFLEN=96000;
+let micBuf=new Float32Array(BUFLEN),bufPos=0;
+
+// FILE mode: full PCM stored separately, no length limit
+let filePcm=null;        // Float32Array of entire file
+let fileLen=0;           // total samples in file
+let playHead=0;          // current read head position in samples
+let playHeadStartSample=0; // filePcm sample index when playHeadStartTime was set
+let playHeadStartTime=0;   // actx.currentTime reference point
+
 let scheduledUntil=0;
 let grainActive=new Array(24).fill(0);
 let logLines=[];
 let source='mic';
 let fileAudioBuf=null;
-let fileLoopSrc=null;
+// mic state — kept so we can disconnect on source switch
+let micStream=null,micProc=null,micSrc=null;
 
 // build bar viz
 const vizWrap=document.getElementById('vizWrap');
@@ -288,8 +308,20 @@ function log(msg){
 
 function up(k,v){
   P[k]=v;
+  // pos slider: 0=centre(no offset), left=behind playhead, right=ahead
+  // display as time offset in seconds relative to playhead
+  let posLabel;
+  if(k==='pos'){
+    const offsetNorm=(v-50)/50; // -1..+1
+    if(source==='file'&&fileLen>0){
+      const offsetSec=((offsetNorm)*fileLen/actx.sampleRate).toFixed(1);
+      posLabel=(offsetNorm>=0?'+':'')+offsetSec+'s';
+    } else {
+      posLabel=(offsetNorm>=0?'+':'')+Math.round(offsetNorm*100)+'%';
+    }
+  }
   const fmt={
-    pos:v+'%',
+    pos: posLabel||v+'%',
     size:Math.round(10+v*4.9)+'ms',
     pitch:(v===50?'0':v<50?((v-50)*0.48).toFixed(1):'+'+((v-50)*0.48).toFixed(1))+'st',
     density:Math.round(1+v*0.49)+'/s',
@@ -297,48 +329,79 @@ function up(k,v){
     spread:v+'%',stereo:v+'%',fb:v+'%',reverb:v+'%',wet:v+'%'
   };
   document.getElementById('v-'+k).textContent=fmt[k];
-  if(k==='pos')document.getElementById('posMarker').style.left=v+'%';
+  if(k==='pos') updatePosMarker();
   if(k==='texture')document.getElementById('st-env').textContent=fmt.texture+' ENV';
   if(k==='reverb'&&reverbGain)reverbGain.gain.value=reverbOn?v/100:0;
   if(k==='wet'&&masterGain)masterGain.gain.value=v/100;
   log(k.toUpperCase()+': '+fmt[k]);
 }
 
+function updatePosMarker(){
+  // In file mode, marker shows actual playhead position + offset on the timeline
+  if(source==='file'&&fileLen>0&&actx){
+    const head=getCurrentPlayHead();
+    const offsetNorm=(P.pos-50)/50;
+    const offsetSamp=offsetNorm*fileLen;
+    let markerPos=((head+offsetSamp+fileLen)%fileLen)/fileLen;
+    document.getElementById('posMarker').style.left=(markerPos*100).toFixed(1)+'%';
+  } else {
+    document.getElementById('posMarker').style.left=P.pos+'%';
+  }
+}
+
 async function initAudio(){
   document.getElementById('overlay').style.display='none';
   actx=new (window.AudioContext||window.webkitAudioContext)();
   micBuf=new Float32Array(BUFLEN);
+
+  // Signal chain: grains → masterGain → analyser → destination
+  // analyser sits at the OUTPUT so it always sees the granular result
   masterGain=actx.createGain();
   masterGain.gain.value=P.wet/100;
-  masterGain.connect(actx.destination);
+  analyser=actx.createAnalyser();
+  analyser.fftSize=128;
   reverbGain=actx.createGain();
   reverbGain.gain.value=0;
   reverbGain.connect(masterGain);
-  analyser=actx.createAnalyser();
-  analyser.fftSize=128;
+  masterGain.connect(analyser);
+  analyser.connect(actx.destination);
+
   log('AUDIO: '+actx.sampleRate+'Hz');
-  if(source==='mic')await startMic();
+  if(source==='mic') await startMic();
   scheduledUntil=actx.currentTime;
   scheduleGrains();
   requestAnimationFrame(drawLoop);
 }
 
 async function startMic(){
+  // Tear down any existing mic nodes first
+  stopMic();
   try{
-    const stream=await navigator.mediaDevices.getUserMedia({
+    micStream=await navigator.mediaDevices.getUserMedia({
       audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false},video:false
     });
-    const src=actx.createMediaStreamSource(stream);
-    src.connect(analyser);
-    const proc=actx.createScriptProcessor(1024,1,1);
-    proc.onaudioprocess=e=>{
-      if(frozen)return;
+    micSrc=actx.createMediaStreamSource(micStream);
+    micProc=actx.createScriptProcessor(1024,1,1);
+    micProc.onaudioprocess=e=>{
+      if(frozen||source!=='mic')return;
       const inp=e.inputBuffer.getChannelData(0);
       for(let i=0;i<inp.length;i++){micBuf[bufPos%BUFLEN]=inp[i];bufPos++;}
     };
-    src.connect(proc);proc.connect(actx.destination);
+    // mic → proc (write to buffer only); proc must connect somewhere to stay alive
+    // connect to a zero-gain node so it runs without making sound directly
+    const silence=actx.createGain();
+    silence.gain.value=0;
+    micSrc.connect(micProc);
+    micProc.connect(silence);
+    silence.connect(actx.destination);
     log('MIC: STREAM OPEN');
   }catch(e){log('MIC ERROR: '+e.message);}
+}
+
+function stopMic(){
+  if(micProc){try{micProc.disconnect();}catch(e){} micProc=null;}
+  if(micSrc){try{micSrc.disconnect();}catch(e){} micSrc=null;}
+  if(micStream){micStream.getTracks().forEach(t=>t.stop()); micStream=null;}
 }
 
 function setSource(s){
@@ -346,12 +409,18 @@ function setSource(s){
   document.getElementById('src-mic').classList.toggle('active',s==='mic');
   document.getElementById('src-file').classList.toggle('active',s==='file');
   document.getElementById('file-row').style.display=s==='file'?'flex':'none';
-  if(s==='mic'&&actx)startMic();
-  if(s==='file'&&fileAudioBuf)activateFileLoop();
+  if(s==='mic'){
+    if(actx) startMic();
+  } else {
+    // FILE mode: stop mic, don't touch micBuf (file PCM already there)
+    stopMic();
+    if(fileAudioBuf) log('FILE: READY FOR GRANULAR');
+    else log('FILE: LOAD A FILE TO BEGIN');
+  }
   log('SOURCE: '+s.toUpperCase());
 }
 
-// File load
+// File load — store FULL PCM (no length limit), reset playhead
 document.getElementById('file-input').addEventListener('change',async function(){
   const file=this.files[0];
   if(!file||!actx)return;
@@ -359,30 +428,22 @@ document.getElementById('file-input').addEventListener('change',async function()
   log('LOADING: '+file.name.slice(0,20));
   const ab=await file.arrayBuffer();
   fileAudioBuf=await actx.decodeAudioData(ab);
-  // copy decoded PCM into micBuf for granular reading
-  const ch=fileAudioBuf.getChannelData(0);
-  const len=Math.min(ch.length,BUFLEN);
-  micBuf=new Float32Array(BUFLEN);
-  for(let i=0;i<len;i++)micBuf[i]=ch[i];
-  bufPos=len;
-  activateFileLoop();
-  log('FILE READY: '+Math.round(fileAudioBuf.duration*10)/10+'s');
+  filePcm=fileAudioBuf.getChannelData(0); // full float32 array, entire file
+  fileLen=filePcm.length;
+  // Reset playhead to start
+  playHeadStartSample=0;
+  playHeadStartTime=actx.currentTime;
+  const dur=Math.round(fileAudioBuf.duration*10)/10;
+  log('FILE READY: '+dur+'s / '+fileLen+' smp');
+  updatePosMarker();
 });
 
-function activateFileLoop(){
-  if(!fileAudioBuf||!actx)return;
-  if(fileLoopSrc){try{fileLoopSrc.stop();}catch(e){}}
-  fileLoopSrc=actx.createBufferSource();
-  fileLoopSrc.buffer=fileAudioBuf;
-  fileLoopSrc.loop=true;
-  fileLoopSrc.connect(analyser);
-  fileLoopSrc.start();
-  // keep refreshing micBuf from file for granular engine
-  const ch=fileAudioBuf.getChannelData(0);
-  const len=Math.min(ch.length,BUFLEN);
-  for(let i=0;i<len;i++)micBuf[i]=ch[i];
-  bufPos=len;
-  log('FILE LOOP: ACTIVE');
+// Returns current playhead position in samples, looping
+function getCurrentPlayHead(){
+  if(!actx||fileLen===0) return 0;
+  const elapsed=actx.currentTime-playHeadStartTime;
+  const elapsedSamples=Math.floor(elapsed*actx.sampleRate);
+  return (playHeadStartSample+elapsedSamples)%fileLen;
 }
 
 function makeEnv(len,tex){
@@ -405,13 +466,49 @@ function scheduleGrains(){
   if(scheduledUntil<now)scheduledUntil=now;
   const density=1+P.density*0.49;
   const sr=actx.sampleRate;
+
   while(scheduledUntil<now+0.25){
-    if(bufPos>sr*0.1){
-      const gMs=10+P.size*4.9;
-      const gSamp=Math.round(gMs*sr/1000);
+    let readOk=false;
+    const gMs=10+P.size*4.9;
+    const gSamp=Math.round(gMs*sr/1000);
+
+    if(source==='file'&&filePcm&&fileLen>0){
+      // --- FILE MODE ---
+      // playhead advances with real time; offset by position slider (-100%..+100% of fileLen)
+      const headAtGrainTime=getCurrentPlayHead()+Math.floor((scheduledUntil-now)*sr);
+      const offsetNorm=(P.pos-50)/50;            // -1..+1
+      const offsetSamp=Math.round(offsetNorm*fileLen);
+      const spr=Math.round((P.spread/100)*fileLen*0.2);
+      const rnd=Math.floor((Math.random()-0.5)*spr*2);
+      let rs=((headAtGrainTime+offsetSamp+rnd)%fileLen+fileLen)%fileLen;
+      // clamp so grain doesn't overrun file end (wrap instead)
+      const gb=actx.createBuffer(2,gSamp,sr);
+      const env=makeEnv(gSamp,P.texture);
+      const pr=Math.pow(2,(P.pitch-50)*0.48/12);
+      const pan=(Math.random()-0.5)*(P.stereo/100)*0.9;
+      for(let ch=0;ch<2;ch++){
+        const d=gb.getChannelData(ch);
+        const cp=ch===0?pan:-pan;
+        for(let i=0;i<gSamp;i++){
+          const si=Math.floor(rs+i*pr);
+          d[i]=(filePcm[si%fileLen]||0)*env[i]*(1+cp);
+        }
+      }
+      const bs=actx.createBufferSource();
+      bs.buffer=gb;
+      const gg=actx.createGain();gg.gain.value=0.55;
+      bs.connect(gg);gg.connect(masterGain);
+      if(reverbOn)gg.connect(reverbGain);
+      bs.start(scheduledUntil);
+      bs.stop(scheduledUntil+gMs/1000+0.02);
+      grainActive[Math.floor(Math.random()*24)]=7;
+      readOk=true;
+
+    } else if(source==='mic'&&bufPos>sr*0.1){
+      // --- MIC MODE ---
       const filled=Math.min(bufPos,BUFLEN);
-      const spr=(P.spread/100)*filled*0.35;
       const posOff=Math.floor((P.pos/100)*filled);
+      const spr=(P.spread/100)*filled*0.35;
       const rnd=Math.floor((Math.random()-0.5)*spr);
       let rs=(bufPos-posOff+rnd+BUFLEN)%BUFLEN;
       if(rs+gSamp>BUFLEN)rs=BUFLEN-gSamp;
@@ -430,15 +527,16 @@ function scheduleGrains(){
       }
       const bs=actx.createBufferSource();
       bs.buffer=gb;
-      const gg=actx.createGain();
-      gg.gain.value=0.55;
+      const gg=actx.createGain();gg.gain.value=0.55;
       bs.connect(gg);gg.connect(masterGain);
       if(reverbOn)gg.connect(reverbGain);
       bs.start(scheduledUntil);
       bs.stop(scheduledUntil+gMs/1000+0.02);
       grainActive[Math.floor(Math.random()*24)]=7;
+      readOk=true;
     }
-    scheduledUntil+=( 1/density)*(0.8+Math.random()*0.4);
+
+    scheduledUntil+=(1/density)*(0.8+Math.random()*0.4);
   }
   setTimeout(scheduleGrains,80);
 }
@@ -469,6 +567,14 @@ function drawLoop(){
     const ol=Math.min(100,Math.round(gp*(P.wet/100)));
     setM('m-ol','mv-ol',ol);
     setM('m-or','mv-or',Math.round(ol*0.95));
+  }
+  // animate pos marker: in file mode it follows the playhead + offset
+  if(source==='file'&&fileLen>0&&actx){
+    const head=getCurrentPlayHead();
+    const offsetNorm=(P.pos-50)/50;
+    const offsetSamp=offsetNorm*fileLen;
+    const markerPos=((head+offsetSamp+fileLen)%fileLen)/fileLen;
+    document.getElementById('posMarker').style.left=(markerPos*100).toFixed(2)+'%';
   }
   // grain dots
   grainActive=grainActive.map((v,i)=>{
