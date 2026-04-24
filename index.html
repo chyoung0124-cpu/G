@@ -4,112 +4,158 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>CLOUDS // GRANULAR SYN</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>CLOUDS // GRN SYN</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{background:#1a0a06;min-height:100vh;overscroll-behavior:none}
-body{font-family:'Share Tech Mono',monospace,Courier,monospace;color:#c8a882;padding:14px;padding-bottom:40px}
+html,body{background:#1a0a06;height:100%;overscroll-behavior:none}
+body{font-family:'Share Tech Mono',monospace,Courier;color:#c8a882;padding:14px 12px 36px}
 
-.h-top{font-size:9px;color:#6b3a20;letter-spacing:3px;margin-bottom:2px}
-.h-title{font-size:13px;letter-spacing:4px;color:#c8a882;margin-bottom:2px}
-.h-sub{font-size:8px;color:#6b3a20;letter-spacing:1px;margin-bottom:12px;line-height:1.6}
+/* HEADER */
+.h-top{font-size:9px;color:#6b3a20;letter-spacing:3px;margin-bottom:1px}
+.h-title{font-size:13px;letter-spacing:5px;color:#c8a882;margin-bottom:1px}
+.h-sub{font-size:8px;color:#6b3a20;letter-spacing:1px;margin-bottom:11px}
+.divider{border:none;border-top:1px solid #3a1a0a;margin:10px 0}
 
-.hint-box{border:1px solid #3a1a0a;padding:10px 11px;margin-bottom:12px;font-size:8px;color:#8a5a3a;line-height:2;letter-spacing:0.5px}
-.hint-box b{color:#c8a882;font-weight:400}
-
+/* STATUS TAGS */
 .status-row{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
-.status-tag{font-size:7px;letter-spacing:1px;padding:2px 6px;border:1px solid #3a1a0a;color:#6b3a20}
-.status-tag.active{border-color:#c8a882;color:#c8a882}
+.tag{font-size:7px;letter-spacing:1.5px;padding:2px 7px;border:1px solid #3a1a0a;color:#4a2a10}
+.tag.on{border-color:#c8a882;color:#c8a882}
 
-.mode-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;margin-bottom:10px}
-.mode-btn{font-family:inherit;font-size:7px;letter-spacing:1px;padding:7px 2px;background:#2a0e04;border:1px solid #3a1a0a;color:#8a5a3a;cursor:pointer;text-align:center;touch-action:manipulation}
-.mode-btn.active{background:#3a1a0a;border-color:#c8a882;color:#c8a882}
+/* SOURCE SWITCH */
+.src-row{display:flex;gap:6px;margin-bottom:10px}
+.src-btn{flex:1;font-family:inherit;font-size:8px;letter-spacing:2px;padding:8px 4px;
+  background:#0e0503;border:1px solid #3a1a0a;color:#6b3a20;cursor:pointer;text-align:center;
+  touch-action:manipulation}
+.src-btn.active{background:#2a0e04;border-color:#c8a882;color:#c8a882}
+.file-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.file-label{font-family:inherit;font-size:8px;letter-spacing:1px;padding:8px 12px;
+  background:#0e0503;border:1px solid #3a1a0a;color:#8a5a3a;cursor:pointer;
+  touch-action:manipulation;white-space:nowrap}
+.file-label:active{border-color:#c8a882;color:#c8a882}
+#file-input{display:none}
+.file-name{font-size:8px;color:#6b3a20;letter-spacing:1px;flex:1;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
 
-.btn-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;margin-bottom:12px}
-.btn{font-family:inherit;font-size:8px;letter-spacing:1px;padding:9px 4px;background:#2a0e04;border:1px solid #3a1a0a;color:#8a5a3a;cursor:pointer;text-align:center;touch-action:manipulation}
-.btn:active,.btn.on{background:#3a1a0a;border-color:#c8a882;color:#c8a882}
-.btn.danger{border-color:#5a1a0a;color:#7a3a20}
-.btn.danger.on{border-color:#c84820;color:#e05020;background:#2a0a04}
+/* BARS VISUALIZER */
+.viz-wrap{height:72px;background:#0e0503;margin-bottom:10px;
+  display:flex;align-items:flex-end;gap:1px;padding:4px 4px 0;overflow:hidden}
+.bar{flex:1;background:#3a1a0a;min-width:3px;transition:height 0.04s}
+.bar.hi{background:#c8a882}
+.bar.mid{background:#7a4a2a}
 
-.viz-panel{border:1px solid #3a1a0a;padding:10px;margin-bottom:12px}
-.panel-label{font-size:7px;letter-spacing:2px;color:#6b3a20;margin-bottom:7px}
+/* POS LINE OVERLAY */
+.viz-outer{position:relative;margin-bottom:10px}
+.pos-marker{position:absolute;top:0;bottom:0;width:1px;background:#c8a882;opacity:0.7;pointer-events:none}
 
-.waveform-wrap{height:48px;background:#0e0503;margin-bottom:7px;position:relative;overflow:hidden}
-.waveform-wrap canvas{display:block;width:100%;height:100%}
-.pos-line{position:absolute;top:0;bottom:0;width:1px;background:#c8a882;opacity:0.8}
+/* GRAIN DOTS */
+.grain-grid{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;margin-bottom:10px}
+.dot{aspect-ratio:1;background:#1a0a06;border:1px solid #2a0e04}
+.dot.live{background:#c8a882;border-color:#c8a882}
+.dot.fade{background:#4a2010;border-color:#3a1a0a}
 
-.grain-grid{display:grid;grid-template-columns:repeat(20,1fr);gap:2px}
-.grain-dot{aspect-ratio:1;background:#1a0a06;border:1px solid #2a0e04}
-.grain-dot.live{background:#c8a882;border-color:#c8a882}
-.grain-dot.fade{background:#5a2a10;border-color:#5a2a10}
+/* MODE ROW */
+.mode-row{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:10px}
+.mode-btn{font-family:inherit;font-size:7px;letter-spacing:1px;padding:7px 2px;
+  background:#0e0503;border:1px solid #3a1a0a;color:#6b3a20;
+  cursor:pointer;text-align:center;touch-action:manipulation}
+.mode-btn.active{background:#2a0e04;border-color:#c8a882;color:#c8a882}
 
-.panels-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
-.panel{border:1px solid #3a1a0a;padding:10px}
+/* BTN ROW */
+.btn-row{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:12px}
+.btn{font-family:inherit;font-size:8px;letter-spacing:2px;padding:9px 4px;
+  background:#0e0503;border:1px solid #3a1a0a;color:#8a5a3a;
+  cursor:pointer;text-align:center;touch-action:manipulation}
+.btn.on{background:#2a0e04;border-color:#c8a882;color:#c8a882}
+.btn.red{border-color:#4a1808;color:#7a3018}
+.btn.red.on{border-color:#c04018;color:#e05020;background:#200804}
 
-.param-row{display:flex;align-items:center;gap:7px;margin-bottom:10px}
-.param-name{font-size:7px;letter-spacing:1px;color:#8a5a3a;width:58px;flex-shrink:0;line-height:1.3}
-input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:5px;background:#2a0e04;outline:none;cursor:pointer;border-radius:0}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:22px;background:#c8a882;cursor:pointer;border-radius:0}
-input[type=range]::-webkit-slider-runnable-track{height:5px;background:#2a0e04}
-.param-val{font-size:9px;color:#c8a882;width:38px;text-align:right;flex-shrink:0}
+/* PANEL */
+.panel{border:1px solid #3a1a0a;padding:10px;margin-bottom:10px}
+.panel-label{font-size:7px;letter-spacing:3px;color:#4a2a10;margin-bottom:9px}
 
+/* PARAM ROWS */
+.param-row{display:flex;align-items:center;gap:8px;margin-bottom:11px}
+.param-row:last-child{margin-bottom:0}
+.pname{font-size:8px;letter-spacing:1px;color:#8a5a3a;width:62px;flex-shrink:0}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  flex:1;height:3px;background:#2a0e04;outline:none;cursor:pointer;border-radius:0}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:28px;
+  background:#c8a882;cursor:pointer;border-radius:0}
+input[type=range]::-webkit-slider-runnable-track{height:3px;background:#2a0e04}
+.pval{font-size:9px;color:#c8a882;width:40px;text-align:right;flex-shrink:0}
+
+/* METERS */
 .meter-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
-.meter-label{font-size:7px;letter-spacing:1px;color:#8a5a3a;width:36px}
-.meter-track{flex:1;height:7px;background:#0e0503}
-.meter-fill{height:100%;background:#c8a882;transition:width 0.06s}
-.meter-pct{font-size:8px;color:#c8a882;width:26px;text-align:right}
+.meter-row:last-child{margin-bottom:0}
+.mlabel{font-size:7px;letter-spacing:1px;color:#6b3a20;width:32px}
+.mtrack{flex:1;height:6px;background:#0e0503}
+.mfill{height:100%;background:#c8a882;transition:width 0.05s}
+.mpct{font-size:8px;color:#8a5a3a;width:24px;text-align:right}
 
-.log{font-size:8px;color:#6b3a20;letter-spacing:0.5px;line-height:1.8}
-.log span{color:#8a5a3a}
+/* LOG */
+.log{font-size:8px;color:#4a2a10;letter-spacing:0.5px;line-height:1.9}
+.log span{color:#7a4a28}
 
-#start-overlay{
-  position:fixed;inset:0;background:#1a0a06;
+/* OVERLAY */
+#overlay{position:fixed;inset:0;background:#1a0a06;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:18px;z-index:100;padding:30px
-}
-#start-btn{
-  font-family:inherit;font-size:13px;letter-spacing:4px;
-  padding:16px 36px;background:#2a0e04;
-  border:1px solid #c8a882;color:#c8a882;cursor:pointer;
-  touch-action:manipulation;width:100%;max-width:280px
-}
-.overlay-text{font-size:8px;letter-spacing:2px;color:#6b3a20;text-align:center;line-height:2.2}
+  gap:20px;z-index:100;padding:24px}
+.ov-title{font-size:9px;letter-spacing:3px;color:#6b3a20;text-align:center;line-height:2.2}
+#init-btn{font-family:inherit;font-size:12px;letter-spacing:4px;padding:15px 0;
+  background:#0e0503;border:1px solid #c8a882;color:#c8a882;cursor:pointer;
+  width:100%;max-width:260px;touch-action:manipulation}
+.ov-hint{font-size:7px;letter-spacing:1px;color:#4a2a10;text-align:center;line-height:2}
 </style>
 </head>
 <body>
 
-<div id="start-overlay">
-  <div class="overlay-text">GRN / DIAGNOSTIC // STREAM CLOSED<br>MICROPHONE ACCESS REQUIRED<br>請在安全來源（https 或 localhost）開啟</div>
-  <button id="start-btn" onclick="initAudio()">[ INITIALISE ]</button>
-  <div class="overlay-text" style="font-size:7px">授權麥克風後開始實時收音顆粒合成<br>建議使用耳機避免回授</div>
+<div id="overlay">
+  <div class="ov-title">CLOUDS // GRN SYN<br>STREAM CLOSED</div>
+  <button id="init-btn" onclick="initAudio()">[ INITIALISE ]</button>
+  <div class="ov-hint">授權麥克風後啟動<br>或初始化後載入音檔<br>建議使用耳機</div>
 </div>
 
 <div class="h-top">GRN / DIAGNOSTIC // STREAM OPEN</div>
 <div class="h-title">CLOUDS // GRANULAR SYN</div>
-<div class="h-sub">ACCESS: LEVEL K // BUFFER: 2048ms // WEB AUDIO API<br>REALTIME MIC INPUT → GRANULAR SYNTHESIS</div>
-
-<div class="hint-box">
-  <b>操作說明</b><br>
-  拖動滑桿即時調整 · 建議戴耳機<br>
-  <b>POSITION</b> 從 buffer 哪個時間點取顆粒<br>
-  <b>SIZE</b> 顆粒長度（ms）<br>
-  <b>PITCH</b> 讀取速率 → 音高偏移（semitone）<br>
-  <b>DENSITY</b> 每秒觸發幾顆粒<br>
-  <b>TEXTURE</b> 包絡形狀（左=Hann柔 右=矩形硬）<br>
-  <b>SPREAD</b> position 隨機散佈範圍<br>
-  <b>FREEZE</b> 鎖住 buffer，製造靜止切片效果
-</div>
+<div class="h-sub">BUFFER: 2s // WEB AUDIO API // REALTIME</div>
 
 <div class="status-row">
-  <div class="status-tag active" id="st-live">LIVE</div>
-  <div class="status-tag" id="st-freeze">FREEZE</div>
-  <div class="status-tag active">STEREO</div>
-  <div class="status-tag" id="st-rev">REVERB</div>
-  <div class="status-tag active" id="st-env">HANN ENV</div>
+  <div class="tag on" id="st-live">LIVE</div>
+  <div class="tag" id="st-freeze">FREEZE</div>
+  <div class="tag on">STEREO</div>
+  <div class="tag" id="st-rev">REVERB</div>
+  <div class="tag on" id="st-env">HANN ENV</div>
 </div>
 
+<!-- SOURCE -->
+<div class="src-row">
+  <button class="src-btn active" id="src-mic" onclick="setSource('mic')">MIC INPUT</button>
+  <button class="src-btn" id="src-file" onclick="setSource('file')">FILE INPUT</button>
+</div>
+<div class="file-row" id="file-row" style="display:none">
+  <label class="file-label" for="file-input">LOAD FILE</label>
+  <input type="file" id="file-input" accept="audio/*,.wav,.mp3,.aiff,.ogg,.flac">
+  <span class="file-name" id="file-name">NO FILE</span>
+</div>
+
+<div class="divider"></div>
+
+<!-- VISUALIZER: vertical bars like the reference image -->
+<div class="viz-outer">
+  <div class="viz-wrap" id="vizWrap"></div>
+  <div class="pos-marker" id="posMarker" style="left:40%"></div>
+</div>
+
+<!-- GRAIN DOTS -->
+<div class="grain-grid" id="grainGrid"></div>
+
+<div class="divider"></div>
+
+<!-- MODE -->
 <div class="mode-row">
   <button class="mode-btn active" onclick="setMode(0,this)">GRANULAR</button>
   <button class="mode-btn" onclick="setMode(1,this)">PITCH SHF</button>
@@ -117,127 +163,132 @@ input[type=range]::-webkit-slider-runnable-track{height:5px;background:#2a0e04}
   <button class="mode-btn" onclick="setMode(3,this)">SPECTRAL</button>
 </div>
 
+<!-- BTNS -->
 <div class="btn-row">
   <button class="btn on" id="btn-run" onclick="toggleRun()">RUNNING</button>
-  <button class="btn danger" id="btn-freeze" onclick="toggleFreeze()">FREEZE</button>
-  <button class="btn" id="btn-trig" onclick="pulseTrig()">TRIGGER</button>
+  <button class="btn red" id="btn-freeze" onclick="toggleFreeze()">FREEZE</button>
   <button class="btn" id="btn-rev" onclick="toggleReverb()">REVERB</button>
 </div>
 
-<div class="viz-panel">
-  <div class="panel-label">BUFFER // WAVEFORM + GRAIN ACTIVITY</div>
-  <div class="waveform-wrap" id="waveWrap">
-    <canvas id="waveCanvas"></canvas>
-    <div class="pos-line" id="posLine" style="left:40%"></div>
+<!-- PARAMS -->
+<div class="panel">
+  <div class="panel-label">GRAIN PARAMS</div>
+  <div class="param-row">
+    <span class="pname">POSITION</span>
+    <input type="range" min="0" max="100" value="40" step="1" oninput="up('pos',+this.value)">
+    <span class="pval" id="v-pos">40%</span>
   </div>
-  <div class="grain-grid" id="grainGrid"></div>
+  <div class="param-row">
+    <span class="pname">SIZE</span>
+    <input type="range" min="0" max="100" value="50" step="1" oninput="up('size',+this.value)">
+    <span class="pval" id="v-size">100ms</span>
+  </div>
+  <div class="param-row">
+    <span class="pname">PITCH</span>
+    <input type="range" min="0" max="100" value="50" step="1" oninput="up('pitch',+this.value)">
+    <span class="pval" id="v-pitch">0st</span>
+  </div>
+  <div class="param-row">
+    <span class="pname">DENSITY</span>
+    <input type="range" min="0" max="100" value="60" step="1" oninput="up('density',+this.value)">
+    <span class="pval" id="v-density">15/s</span>
+  </div>
+  <div class="param-row">
+    <span class="pname">TEXTURE</span>
+    <input type="range" min="0" max="100" value="20" step="1" oninput="up('texture',+this.value)">
+    <span class="pval" id="v-texture">HANN</span>
+  </div>
 </div>
 
-<div class="panels-wrap">
-  <div class="panel">
-    <div class="panel-label">GRAIN PARAMS</div>
-    <div class="param-row">
-      <span class="param-name">POSITION</span>
-      <input type="range" min="0" max="100" value="40" step="1" oninput="updateParam('pos',+this.value)">
-      <span class="param-val" id="v-pos">40%</span>
-    </div>
-    <div class="param-row">
-      <span class="param-name">SIZE</span>
-      <input type="range" min="0" max="100" value="50" step="1" oninput="updateParam('size',+this.value)">
-      <span class="param-val" id="v-size">100ms</span>
-    </div>
-    <div class="param-row">
-      <span class="param-name">PITCH</span>
-      <input type="range" min="0" max="100" value="50" step="1" oninput="updateParam('pitch',+this.value)">
-      <span class="param-val" id="v-pitch">0st</span>
-    </div>
-    <div class="param-row">
-      <span class="param-name">DENSITY</span>
-      <input type="range" min="0" max="100" value="60" step="1" oninput="updateParam('density',+this.value)">
-      <span class="param-val" id="v-density">15/s</span>
-    </div>
-    <div class="param-row">
-      <span class="param-name">TEXTURE</span>
-      <input type="range" min="0" max="100" value="20" step="1" oninput="updateParam('texture',+this.value)">
-      <span class="param-val" id="v-texture">HANN</span>
-    </div>
+<div class="panel">
+  <div class="panel-label">SCATTER + MIX</div>
+  <div class="param-row">
+    <span class="pname">SPREAD</span>
+    <input type="range" min="0" max="100" value="20" step="1" oninput="up('spread',+this.value)">
+    <span class="pval" id="v-spread">20%</span>
   </div>
+  <div class="param-row">
+    <span class="pname">STEREO</span>
+    <input type="range" min="0" max="100" value="50" step="1" oninput="up('stereo',+this.value)">
+    <span class="pval" id="v-stereo">50%</span>
+  </div>
+  <div class="param-row">
+    <span class="pname">FEEDBACK</span>
+    <input type="range" min="0" max="100" value="10" step="1" oninput="up('fb',+this.value)">
+    <span class="pval" id="v-fb">10%</span>
+  </div>
+  <div class="param-row">
+    <span class="pname">REVERB MIX</span>
+    <input type="range" min="0" max="100" value="30" step="1" oninput="up('reverb',+this.value)">
+    <span class="pval" id="v-reverb">30%</span>
+  </div>
+  <div class="param-row">
+    <span class="pname">DRY / WET</span>
+    <input type="range" min="0" max="100" value="80" step="1" oninput="up('wet',+this.value)">
+    <span class="pval" id="v-wet">80%</span>
+  </div>
+</div>
 
-  <div class="panel">
-    <div class="panel-label">SCATTER + MIX</div>
-    <div class="param-row">
-      <span class="param-name">SPREAD</span>
-      <input type="range" min="0" max="100" value="20" step="1" oninput="updateParam('spread',+this.value)">
-      <span class="param-val" id="v-spread">20%</span>
-    </div>
-    <div class="param-row">
-      <span class="param-name">STEREO</span>
-      <input type="range" min="0" max="100" value="50" step="1" oninput="updateParam('stereo',+this.value)">
-      <span class="param-val" id="v-stereo">50%</span>
-    </div>
-    <div class="param-row">
-      <span class="param-name">FEEDBACK</span>
-      <input type="range" min="0" max="100" value="10" step="1" oninput="updateParam('fb',+this.value)">
-      <span class="param-val" id="v-fb">10%</span>
-    </div>
-    <div class="param-row">
-      <span class="param-name">REVERB MIX</span>
-      <input type="range" min="0" max="100" value="30" step="1" oninput="updateParam('reverb',+this.value)">
-      <span class="param-val" id="v-reverb">30%</span>
-    </div>
-    <div class="param-row">
-      <span class="param-name">DRY / WET</span>
-      <input type="range" min="0" max="100" value="80" step="1" oninput="updateParam('wet',+this.value)">
-      <span class="param-val" id="v-wet">80%</span>
-    </div>
-  </div>
+<div class="panel">
+  <div class="panel-label">OUTPUT METERS</div>
+  <div class="meter-row"><span class="mlabel">IN</span><div class="mtrack"><div class="mfill" id="m-in" style="width:0%"></div></div><span class="mpct" id="mv-in">0%</span></div>
+  <div class="meter-row"><span class="mlabel">GRAIN</span><div class="mtrack"><div class="mfill" id="m-gr" style="width:0%"></div></div><span class="mpct" id="mv-gr">0%</span></div>
+  <div class="meter-row"><span class="mlabel">OUT L</span><div class="mtrack"><div class="mfill" id="m-ol" style="width:0%"></div></div><span class="mpct" id="mv-ol">0%</span></div>
+  <div class="meter-row"><span class="mlabel">OUT R</span><div class="mtrack"><div class="mfill" id="m-or" style="width:0%"></div></div><span class="mpct" id="mv-or">0%</span></div>
+</div>
 
-  <div class="panel">
-    <div class="panel-label">OUTPUT METERS</div>
-    <div class="meter-row"><span class="meter-label">IN</span><div class="meter-track"><div class="meter-fill" id="m-in" style="width:0%"></div></div><span class="meter-pct" id="mv-in">0%</span></div>
-    <div class="meter-row"><span class="meter-label">GRAIN</span><div class="meter-track"><div class="meter-fill" id="m-gr" style="width:0%"></div></div><span class="meter-pct" id="mv-gr">0%</span></div>
-    <div class="meter-row"><span class="meter-label">OUT L</span><div class="meter-track"><div class="meter-fill" id="m-ol" style="width:0%"></div></div><span class="meter-pct" id="mv-ol">0%</span></div>
-    <div class="meter-row"><span class="meter-label">OUT R</span><div class="meter-track"><div class="meter-fill" id="m-or" style="width:0%"></div></div><span class="meter-pct" id="mv-or">0%</span></div>
-  </div>
-
-  <div class="panel">
-    <div class="panel-label">SYSTEM LOG</div>
-    <div class="log" id="syslog"></div>
-  </div>
+<div class="panel">
+  <div class="panel-label">SYSTEM LOG</div>
+  <div class="log" id="syslog"></div>
 </div>
 
 <script>
 const P={pos:40,size:50,pitch:50,density:60,texture:20,spread:20,stereo:50,fb:10,reverb:30,wet:80};
 let running=true,frozen=false,reverbOn=false;
-let actx=null,micBuf=null;
-let analyser=null,reverbGain=null,masterGain=null,feedbackGain=null;
+let actx=null,analyser=null,masterGain=null,reverbGain=null;
+let micBuf=new Float32Array(0),bufPos=0;
 const BUFLEN=96000;
-let bufPos=0;
-let grainActive=new Array(20).fill(0);
-let waveData=new Array(160).fill(0);
-let logLines=[];
 let scheduledUntil=0;
-let mode=0;
-let animRunning=false;
+let grainActive=new Array(24).fill(0);
+let logLines=[];
+let source='mic';
+let fileAudioBuf=null;
+let fileLoopSrc=null;
 
-const grid=document.getElementById('grainGrid');
-for(let i=0;i<20;i++){
+// build bar viz
+const vizWrap=document.getElementById('vizWrap');
+const BAR_COUNT=48;
+const bars=[];
+for(let i=0;i<BAR_COUNT;i++){
+  const b=document.createElement('div');
+  b.className='bar';
+  b.style.height='4px';
+  vizWrap.appendChild(b);
+  bars.push(b);
+}
+
+// build grain dots
+const gdGrid=document.getElementById('grainGrid');
+for(let i=0;i<24;i++){
   const d=document.createElement('div');
-  d.className='grain-dot';d.id='gd'+i;
-  grid.appendChild(d);
+  d.className='dot';d.id='gd'+i;
+  gdGrid.appendChild(d);
 }
 
-function addLog(msg){
+function log(msg){
   const t=new Date();
-  const ts=[t.getHours(),t.getMinutes(),t.getSeconds()].map(n=>n.toString().padStart(2,'0')).join(':');
-  logLines.push({ts,msg});
+  const ts=[t.getHours(),t.getMinutes(),t.getSeconds()].map(n=>String(n).padStart(2,'0')).join(':');
+  logLines.push(ts+' '+msg);
   if(logLines.length>6)logLines.shift();
-  document.getElementById('syslog').innerHTML=logLines.map(l=>`<div>${l.ts} <span>${l.msg}</span></div>`).join('');
+  document.getElementById('syslog').innerHTML=logLines.map(l=>{
+    const i=l.indexOf(' ');
+    return`<div>${l.slice(0,i)} <span>${l.slice(i+1)}</span></div>`;
+  }).join('');
 }
 
-function updateParam(k,v){
+function up(k,v){
   P[k]=v;
-  const labels={
+  const fmt={
     pos:v+'%',
     size:Math.round(10+v*4.9)+'ms',
     pitch:(v===50?'0':v<50?((v-50)*0.48).toFixed(1):'+'+((v-50)*0.48).toFixed(1))+'st',
@@ -245,73 +296,104 @@ function updateParam(k,v){
     texture:v<25?'HANN':v<50?'SOFT':v<75?'MIX':'RECT',
     spread:v+'%',stereo:v+'%',fb:v+'%',reverb:v+'%',wet:v+'%'
   };
-  document.getElementById('v-'+k).textContent=labels[k];
-  if(k==='pos')document.getElementById('posLine').style.left=v+'%';
-  if(k==='texture'){document.getElementById('st-env').textContent=labels.texture+' ENV';}
+  document.getElementById('v-'+k).textContent=fmt[k];
+  if(k==='pos')document.getElementById('posMarker').style.left=v+'%';
+  if(k==='texture')document.getElementById('st-env').textContent=fmt.texture+' ENV';
   if(k==='reverb'&&reverbGain)reverbGain.gain.value=reverbOn?v/100:0;
   if(k==='wet'&&masterGain)masterGain.gain.value=v/100;
-  if(k==='fb'&&feedbackGain)feedbackGain.gain.value=v/200;
-  addLog(k.toUpperCase()+': '+labels[k]);
+  log(k.toUpperCase()+': '+fmt[k]);
 }
 
 async function initAudio(){
-  document.getElementById('start-overlay').style.display='none';
-  try{
-    actx=new (window.AudioContext||window.webkitAudioContext)();
-    micBuf=new Float32Array(BUFLEN);
-    addLog('AUDIO: '+actx.sampleRate+'Hz');
+  document.getElementById('overlay').style.display='none';
+  actx=new (window.AudioContext||window.webkitAudioContext)();
+  micBuf=new Float32Array(BUFLEN);
+  masterGain=actx.createGain();
+  masterGain.gain.value=P.wet/100;
+  masterGain.connect(actx.destination);
+  reverbGain=actx.createGain();
+  reverbGain.gain.value=0;
+  reverbGain.connect(masterGain);
+  analyser=actx.createAnalyser();
+  analyser.fftSize=128;
+  log('AUDIO: '+actx.sampleRate+'Hz');
+  if(source==='mic')await startMic();
+  scheduledUntil=actx.currentTime;
+  scheduleGrains();
+  requestAnimationFrame(drawLoop);
+}
 
+async function startMic(){
+  try{
     const stream=await navigator.mediaDevices.getUserMedia({
       audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false},video:false
     });
     const src=actx.createMediaStreamSource(stream);
-    analyser=actx.createAnalyser();
-    analyser.fftSize=512;
     src.connect(analyser);
-
     const proc=actx.createScriptProcessor(1024,1,1);
     proc.onaudioprocess=e=>{
       if(frozen)return;
       const inp=e.inputBuffer.getChannelData(0);
       for(let i=0;i<inp.length;i++){micBuf[bufPos%BUFLEN]=inp[i];bufPos++;}
     };
-    src.connect(proc);
-    proc.connect(actx.destination);
-
-    masterGain=actx.createGain();
-    masterGain.gain.value=P.wet/100;
-    masterGain.connect(actx.destination);
-
-    reverbGain=actx.createGain();
-    reverbGain.gain.value=0;
-    reverbGain.connect(masterGain);
-
-    feedbackGain=actx.createGain();
-    feedbackGain.gain.value=P.fb/200;
-    feedbackGain.connect(masterGain);
-
-    addLog('MIC: STREAM OPEN');
-    addLog('GRAIN ENGINE: READY');
-    addLog('建議戴耳機避免回授');
-
-    scheduledUntil=actx.currentTime;
-    scheduleGrains();
-    if(!animRunning){animRunning=true;requestAnimationFrame(drawLoop);}
-  }catch(err){
-    addLog('ERROR: '+err.message);
-    document.getElementById('start-overlay').style.display='flex';
-  }
+    src.connect(proc);proc.connect(actx.destination);
+    log('MIC: STREAM OPEN');
+  }catch(e){log('MIC ERROR: '+e.message);}
 }
 
-function makeEnv(len,texture){
+function setSource(s){
+  source=s;
+  document.getElementById('src-mic').classList.toggle('active',s==='mic');
+  document.getElementById('src-file').classList.toggle('active',s==='file');
+  document.getElementById('file-row').style.display=s==='file'?'flex':'none';
+  if(s==='mic'&&actx)startMic();
+  if(s==='file'&&fileAudioBuf)activateFileLoop();
+  log('SOURCE: '+s.toUpperCase());
+}
+
+// File load
+document.getElementById('file-input').addEventListener('change',async function(){
+  const file=this.files[0];
+  if(!file||!actx)return;
+  document.getElementById('file-name').textContent=file.name.length>28?file.name.slice(0,28)+'…':file.name;
+  log('LOADING: '+file.name.slice(0,20));
+  const ab=await file.arrayBuffer();
+  fileAudioBuf=await actx.decodeAudioData(ab);
+  // copy decoded PCM into micBuf for granular reading
+  const ch=fileAudioBuf.getChannelData(0);
+  const len=Math.min(ch.length,BUFLEN);
+  micBuf=new Float32Array(BUFLEN);
+  for(let i=0;i<len;i++)micBuf[i]=ch[i];
+  bufPos=len;
+  activateFileLoop();
+  log('FILE READY: '+Math.round(fileAudioBuf.duration*10)/10+'s');
+});
+
+function activateFileLoop(){
+  if(!fileAudioBuf||!actx)return;
+  if(fileLoopSrc){try{fileLoopSrc.stop();}catch(e){}}
+  fileLoopSrc=actx.createBufferSource();
+  fileLoopSrc.buffer=fileAudioBuf;
+  fileLoopSrc.loop=true;
+  fileLoopSrc.connect(analyser);
+  fileLoopSrc.start();
+  // keep refreshing micBuf from file for granular engine
+  const ch=fileAudioBuf.getChannelData(0);
+  const len=Math.min(ch.length,BUFLEN);
+  for(let i=0;i<len;i++)micBuf[i]=ch[i];
+  bufPos=len;
+  log('FILE LOOP: ACTIVE');
+}
+
+function makeEnv(len,tex){
   const env=new Float32Array(len);
-  const mix=texture/100;
+  const mix=tex/100;
   for(let i=0;i<len;i++){
     const t=i/(len-1);
-    const hann=0.5*(1-Math.cos(2*Math.PI*t));
-    env[i]=hann*(1-mix)+mix;
-    if(i<3)env[i]*=i/3;
-    if(i>len-4)env[i]*=(len-1-i)/3;
+    const h=0.5*(1-Math.cos(2*Math.PI*t));
+    env[i]=h*(1-mix)+mix;
+    if(i<4)env[i]*=i/4;
+    if(i>len-5)env[i]*=(len-1-i)/4;
   }
   return env;
 }
@@ -322,100 +404,84 @@ function scheduleGrains(){
   const now=actx.currentTime;
   if(scheduledUntil<now)scheduledUntil=now;
   const density=1+P.density*0.49;
-  const interval=1/density;
   const sr=actx.sampleRate;
   while(scheduledUntil<now+0.25){
-    if(bufPos>sr*0.15){
-      const grainMs=10+P.size*4.9;
-      const grainSamples=Math.round(grainMs*sr/1000);
-      const totalFilled=Math.min(bufPos,BUFLEN);
-      const spread=(P.spread/100)*totalFilled*0.3;
-      const posOffset=Math.floor((P.pos/100)*totalFilled);
-      const randomOffset=Math.floor((Math.random()-0.5)*spread);
-      let readStart=(bufPos-posOffset+randomOffset+BUFLEN)%BUFLEN;
-      if(readStart+grainSamples>BUFLEN)readStart=BUFLEN-grainSamples;
-      if(readStart<0)readStart=0;
-      const gbuf=actx.createBuffer(2,grainSamples,sr);
-      const env=makeEnv(grainSamples,P.texture);
-      const pitchRate=Math.pow(2,(P.pitch-50)*0.48/12);
-      const stereoAmt=(P.stereo/100)*0.9;
-      const pan=(Math.random()-0.5)*stereoAmt;
+    if(bufPos>sr*0.1){
+      const gMs=10+P.size*4.9;
+      const gSamp=Math.round(gMs*sr/1000);
+      const filled=Math.min(bufPos,BUFLEN);
+      const spr=(P.spread/100)*filled*0.35;
+      const posOff=Math.floor((P.pos/100)*filled);
+      const rnd=Math.floor((Math.random()-0.5)*spr);
+      let rs=(bufPos-posOff+rnd+BUFLEN)%BUFLEN;
+      if(rs+gSamp>BUFLEN)rs=BUFLEN-gSamp;
+      if(rs<0)rs=0;
+      const gb=actx.createBuffer(2,gSamp,sr);
+      const env=makeEnv(gSamp,P.texture);
+      const pr=Math.pow(2,(P.pitch-50)*0.48/12);
+      const pan=(Math.random()-0.5)*(P.stereo/100)*0.9;
       for(let ch=0;ch<2;ch++){
-        const data=gbuf.getChannelData(ch);
-        const chPan=ch===0?pan:-pan;
-        for(let i=0;i<grainSamples;i++){
-          const srcIdx=Math.floor(readStart+i*pitchRate);
-          const s=micBuf[srcIdx%BUFLEN]||0;
-          data[i]=s*env[i]*(1+chPan);
+        const d=gb.getChannelData(ch);
+        const cp=ch===0?pan:-pan;
+        for(let i=0;i<gSamp;i++){
+          const si=Math.floor(rs+i*pr);
+          d[i]=(micBuf[si%BUFLEN]||0)*env[i]*(1+cp);
         }
       }
-      const bsrc=actx.createBufferSource();
-      bsrc.buffer=gbuf;
-      const gGain=actx.createGain();
-      gGain.gain.value=0.5;
-      bsrc.connect(gGain);
-      gGain.connect(masterGain);
-      if(reverbOn)gGain.connect(reverbGain);
-      bsrc.start(scheduledUntil);
-      bsrc.stop(scheduledUntil+grainMs/1000+0.02);
-      const dotIdx=Math.floor(Math.random()*20);
-      grainActive[dotIdx]=7;
+      const bs=actx.createBufferSource();
+      bs.buffer=gb;
+      const gg=actx.createGain();
+      gg.gain.value=0.55;
+      bs.connect(gg);gg.connect(masterGain);
+      if(reverbOn)gg.connect(reverbGain);
+      bs.start(scheduledUntil);
+      bs.stop(scheduledUntil+gMs/1000+0.02);
+      grainActive[Math.floor(Math.random()*24)]=7;
     }
-    scheduledUntil+=interval*(0.8+Math.random()*0.4);
+    scheduledUntil+=( 1/density)*(0.8+Math.random()*0.4);
   }
   setTimeout(scheduleGrains,80);
 }
 
-const waveCanvas=document.getElementById('waveCanvas');
-const wctx=waveCanvas.getContext('2d');
-
 function drawLoop(){
-  const wrap=document.getElementById('waveWrap');
-  const W=wrap.offsetWidth||320;
-  const H=48;
-  waveCanvas.width=W;waveCanvas.height=H;
-
-  if(analyser&&actx){
+  // bars
+  if(analyser){
+    const fd=new Uint8Array(analyser.frequencyBinCount);
+    analyser.getByteFrequencyData(fd);
+    const step=Math.floor(fd.length/BAR_COUNT);
+    for(let i=0;i<BAR_COUNT;i++){
+      let sum=0;
+      for(let j=0;j<step;j++)sum+=fd[i*step+j];
+      const avg=sum/step;
+      const h=Math.max(3,Math.round((avg/255)*68));
+      const b=bars[i];
+      b.style.height=h+'px';
+      b.className='bar'+(avg>160?' hi':avg>80?' mid':'');
+    }
+    // meters
     const td=new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteTimeDomainData(td);
-    for(let i=0;i<waveData.length-1;i++)waveData[i]=waveData[i+1];
-    waveData[waveData.length-1]=(td[0]/128-1)*0.8;
     const rms=Math.sqrt(td.reduce((a,v)=>a+(v/128-1)**2,0)/td.length);
-    const pct=Math.min(100,Math.round(rms*400));
-    setMeter('m-in','mv-in',pct);
-    const gPct=Math.min(100,Math.round(pct*(P.density/60)*1.2));
-    setMeter('m-gr','mv-gr',gPct);
-    const outL=Math.min(100,Math.round(gPct*(P.wet/100)));
-    setMeter('m-ol','mv-ol',outL);
-    setMeter('m-or','mv-or',Math.round(outL*0.95));
+    const ip=Math.min(100,Math.round(rms*400));
+    setM('m-in','mv-in',ip);
+    const gp=Math.min(100,Math.round(ip*(P.density/60)*1.2));
+    setM('m-gr','mv-gr',gp);
+    const ol=Math.min(100,Math.round(gp*(P.wet/100)));
+    setM('m-ol','mv-ol',ol);
+    setM('m-or','mv-or',Math.round(ol*0.95));
   }
-
-  wctx.fillStyle='#0e0503';wctx.fillRect(0,0,W,H);
-  wctx.strokeStyle='#c8a882';wctx.lineWidth=1.2;wctx.beginPath();
-  for(let i=0;i<waveData.length;i++){
-    const x=(i/waveData.length)*W;
-    const y=H/2+waveData[i]*(H/2-3);
-    i===0?wctx.moveTo(x,y):wctx.lineTo(x,y);
-  }
-  wctx.stroke();
-  wctx.strokeStyle='#2a0e04';wctx.lineWidth=0.5;
-  [0.25,0.5,0.75].forEach(f=>{
-    const x=f*W;
-    wctx.beginPath();wctx.moveTo(x,0);wctx.lineTo(x,H);wctx.stroke();
-  });
-
+  // grain dots
   grainActive=grainActive.map((v,i)=>{
     const el=document.getElementById('gd'+i);
-    if(v>0){v--;el.className='grain-dot '+(v>3?'live':'fade');return v;}
-    el.className='grain-dot';return 0;
+    if(v>0){v--;el.className='dot '+(v>3?'live':'fade');return v;}
+    el.className='dot';return 0;
   });
-
   requestAnimationFrame(drawLoop);
 }
 
-function setMeter(id,vid,val){
-  document.getElementById(id).style.width=val+'%';
-  document.getElementById(vid).textContent=val+'%';
+function setM(id,vid,v){
+  document.getElementById(id).style.width=v+'%';
+  document.getElementById(vid).textContent=v+'%';
 }
 
 function toggleRun(){
@@ -424,42 +490,30 @@ function toggleRun(){
   b.textContent=running?'RUNNING':'STOPPED';
   b.classList.toggle('on',running);
   if(running&&actx)scheduleGrains();
-  addLog(running?'ENGINE: RUNNING':'ENGINE: STOPPED');
+  log(running?'ENGINE: RUNNING':'ENGINE: STOPPED');
 }
-
 function toggleFreeze(){
   frozen=!frozen;
   document.getElementById('btn-freeze').classList.toggle('on',frozen);
-  document.getElementById('st-freeze').classList.toggle('active',frozen);
-  document.getElementById('st-live').classList.toggle('active',!frozen);
-  addLog(frozen?'FREEZE: BUF LOCKED':'FREEZE: BUF WRITING');
+  document.getElementById('st-freeze').classList.toggle('on',frozen);
+  document.getElementById('st-live').classList.toggle('on',!frozen);
+  log(frozen?'FREEZE: BUF LOCKED':'FREEZE: BUF WRITING');
 }
-
 function toggleReverb(){
   reverbOn=!reverbOn;
   document.getElementById('btn-rev').classList.toggle('on',reverbOn);
-  document.getElementById('st-rev').classList.toggle('active',reverbOn);
+  document.getElementById('st-rev').classList.toggle('on',reverbOn);
   if(reverbGain)reverbGain.gain.value=reverbOn?P.reverb/100:0;
-  addLog(reverbOn?'REVERB: ON':'REVERB: OFF');
+  log(reverbOn?'REVERB: ON':'REVERB: OFF');
 }
-
-function pulseTrig(){
-  const b=document.getElementById('btn-trig');
-  b.classList.add('on');setTimeout(()=>b.classList.remove('on'),180);
-  for(let i=0;i<5;i++){grainActive[Math.floor(Math.random()*20)]=9;}
-  addLog('EXT TRIG: PULSE');
-}
-
 function setMode(idx,btn){
-  mode=idx;
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const names=['GRANULAR','PITCH SHIFTER','LOOPING DELAY','SPECTRAL'];
-  addLog('MODE: '+names[idx]);
+  log('MODE: '+['GRANULAR','PITCH SHF','LPD DELAY','SPECTRAL'][idx]);
 }
 
-addLog('SYSTEM: STANDBY');
-addLog('CLICK [ INITIALISE ] TO START');
+log('SYSTEM: STANDBY');
+log('PRESS [ INITIALISE ] TO START');
 </script>
 </body>
 </html>
